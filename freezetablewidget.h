@@ -23,8 +23,8 @@ protected:
     void scrollTo (const QModelIndex & index, ScrollHint hint = EnsureVisible) override;
 
 private:
-    QTableView *frozenTableView;
-    QTableView *frozenLastTableView;
+    QTableView *frozenTableView = nullptr;
+    QTableView *frozenLastTableView = nullptr;
     enum FreezeType fType = None;
     void initFirst();
     void initLast();
