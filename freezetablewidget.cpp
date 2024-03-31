@@ -114,7 +114,15 @@ void FreezeTableWidget::updateFrozenTableGeometry()
                                      viewport()->height()+horizontalHeader()->height());
     }
     if (frozenLastTableView != nullptr) {
-        frozenLastTableView->setGeometry(viewport()->width() - frameWidth() - columnWidth(model()->columnCount()-1) + verticalHeader()->width(),frameWidth(),
+        int plusWidth = 0;
+        for (int i = 0; i < model()->columnCount() - 1; i++) {
+            plusWidth += columnWidth(i);
+        }
+        int cur_x = viewport()->width() - frameWidth() - columnWidth(model()->columnCount()-1) + verticalHeader()->width();
+        if (verticalHeader()->width() + frameWidth() + plusWidth < cur_x) {
+            cur_x = verticalHeader()->width() + frameWidth() + plusWidth;
+        }
+        frozenLastTableView->setGeometry(cur_x, frameWidth(),
                                      columnWidth(model()->columnCount()-1), viewport()->height()+horizontalHeader()->height());
     }
 }
